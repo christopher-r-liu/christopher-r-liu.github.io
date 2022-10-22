@@ -17,7 +17,11 @@ const spritHeight = 523;
 
 
 
-let playerState = "run";
+let playerState = "idle";
+const dropdown = document.getElementById("trainSubject");
+dropdown.addEventListener("change", function(e) {
+    playerState=e.target.value;
+})
 let gameFrame = 0;
 let staggerFrames = 5;
 const spriteAnimations = [];
@@ -88,6 +92,27 @@ function animate() {
     //alert(spriteAnimations[playerState]
     //    .loc.length);
 
+if(playerState=="jump"){
+    //console.log(gameFrame);
+    if(gameFrame%1000==0){
+        let playerState="fall";
+    }
+    
+    let position = Math.floor(gameFrame / staggerFrames) % spriteAnimations[playerState]
+    .loc.length;
+let frameX = spritWidth * position;
+let frameY = spriteAnimations[playerState].loc[position].y;
+
+
+
+ctx.drawImage(playerImage, frameX , frameY, spritWidth,
+    spritHeight, 0, 0, spritWidth, spritHeight)
+gameFrame++;
+requestAnimationFrame(animate)
+
+
+}
+else{
     let position = Math.floor(gameFrame / staggerFrames) % spriteAnimations[playerState]
         .loc.length;
     let frameX = spritWidth * position;
@@ -101,6 +126,9 @@ function animate() {
    //x++;
 
     requestAnimationFrame(animate)
+
+}
+    
 
 };
 
