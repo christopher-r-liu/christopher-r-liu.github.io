@@ -28,9 +28,9 @@ function gamearea()  {
    
 
     this.canvas = document.createElement("canvas");
-    this.canvas.width = 480;
-    this.canvas.height = 270;
-    console.log(document.getElementById("canvascontainer"));
+    this.canvas.width = window.innerWidth*0.75;;
+    this.canvas.height = window.innerHeight*0.5;;
+   // console.log(document.getElementById("canvascontainer"));
     document.getElementById("canvascontainer").appendChild(this.canvas);
     this.context = this.canvas.getContext("2d");
     this.pause = false;
@@ -69,7 +69,7 @@ function component(width, height, color, x, y, type) {
         else if (this.type == "ball"){
             //ctx.fillStyle = color;
             //ctx.fillCircle(this.x, this.y, this.width, this.height);
-            drawCircle(ctx, color, this.x, this.y, this.width, this.height);
+            drawCircle(ctx, color, this.x+10, this.y, this.width, this.height);
         }
           else {
         ctx.fillStyle = color;
@@ -81,12 +81,20 @@ function component(width, height, color, x, y, type) {
         this.x += this.speedX;
         this.y += this.speedY + this.gravitySpeed;
         this.hitBottom();
+        this.hitTop();
     }
     this.hitBottom = function() {
         var rockbottom = myGameArea.canvas.height - this.height;
         if (this.y > rockbottom) {
         this.y = rockbottom;
             this.gravitySpeed = -(this.gravitySpeed * this.bounce);
+        }
+    }
+    this.hitTop = function() {
+        var rocktop = this.height;
+        if (this.y < rocktop) {
+        this.y = rocktop;
+        this.gravitySpeed = -(this.gravitySpeed);
         }
     }
     this.crashWith = function(otherobj) {
@@ -120,13 +128,13 @@ function updateGameArea() {
     if (myGameArea.frameNo == 1 || everyinterval(150)) {
         x = myGameArea.canvas.width;
         minHeight = 20;
-        maxHeight = 200;
+        maxHeight = 100;
         height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
         minGap = 50;
         maxGap = 200;
         gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
-        myObstacles.push(new component(20, height, "green", x, 0));
-        myObstacles.push(new component(20, x - height - gap, "green", x, height + gap));
+        myObstacles.push(new component(20, height, "blue", x, 0));
+        myObstacles.push(new component(20, x - height - gap, "blue", x, height + gap));
     }
     for (i = 0; i < myObstacles.length;i++) {
         myObstacles[i].x += -1;
@@ -189,7 +197,7 @@ function drawCircle(ctx,color, x, y, r,r) {
     ctx.arc(x, y, r, 0, 2 * Math.PI, false);
     ctx.fillStyle = color;
     ctx.fill();
-    xtx.lineWidth = 5;
+    ctx.lineWidth = 1;
     ctx.strokeStyle = '#003300';
     ctx.stroke();
 }
