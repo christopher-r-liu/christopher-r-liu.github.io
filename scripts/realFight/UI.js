@@ -12,6 +12,26 @@ export class UI {
         context.fillStyle = this.game.fontColor;
         //score
         context.fillText("Score: " + this.game.score, 20, 50 );
+        //timer
+        context.textAlign = 'left';
+        context.font = this.fontSize *0.8 + 'px ' + this.fontFamily;
+        context.fillText("Time: " + (this.game.time*0.001).toFixed(1), 20, 80 );
+
+        //game over msg
+        if(this.game.gameOver){
+            context.textAlign = 'center';
+            context.font = this.fontSize *2 + 'px ' + this.fontFamily;
+            if(this.game.score >5){
+                context.fillText("You Win! ", this.game.width * 0.5, this.game.height * 0.5 );
+
+            }
+            else{
+                context.fillText("You Lose! " , this.game.width * 0.5, this.game.height * 0.5 );
+            }
+        
+            
+        }
+
 
     }
 }
