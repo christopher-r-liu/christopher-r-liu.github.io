@@ -23,9 +23,9 @@ window.addEventListener('load',function(){
             this.speed = 0;
             this.maxSpeed =3;
             this.gameName = 'city';
-            // this.groundMargin = 80; //for city
+            this.groundMargin = 80; //for city
 
-            this.groundMargin = 40; //for forest
+            //this.groundMargin = 40; //for forest
 
             this.background = new Background(this);
             this.player = new Player(this);
