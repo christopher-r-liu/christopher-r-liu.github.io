@@ -4,9 +4,21 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    font-family: 'Creepster', cursive;
 }
 
 #player, #layer-1, #layer-2, #layer-3, #layer-4, #layer-5 {
     display: none;
+}
+
+#replay {
+    display: none;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Creepster', cursive;
+
+
 }
 

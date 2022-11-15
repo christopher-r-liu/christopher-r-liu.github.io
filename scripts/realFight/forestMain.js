@@ -13,7 +13,7 @@ window.addEventListener('load',function(){
     const ctx = canvas.getContext('2d');
     
     
-    const CANVAS_WIDTH = canvas.width = 500;
+    const CANVAS_WIDTH = canvas.width = 1667;
     const CANVAS_HEIGHT = canvas.height = 500;// window.innerHeight;
 
     class Game{
@@ -22,7 +22,7 @@ window.addEventListener('load',function(){
             this.height = height;
             this.speed = 0;
             this.maxSpeed =3;
-            this.gameName = 'city';
+            this.gameName = 'forest';
             // this.groundMargin = 80; //for city
 
             this.groundMargin = 40; //for forest
@@ -47,7 +47,7 @@ window.addEventListener('load',function(){
             this.maxTime =30000;
          
             this.gameOver = false;
-            this.lives = 10;
+            this.lives = 5;
 
             this.player.currentState = this.player.states[0];
             this.player.currentState.enter();
@@ -79,10 +79,10 @@ window.addEventListener('load',function(){
         });
 
         //handle messages
-        // this.floatingMessages.forEach(message => {
-        //     message.update();
+        this.floatingMessages.forEach(message => {
+            message.update();
 
-        // });
+        });
 
 
 
@@ -136,10 +136,10 @@ window.addEventListener('load',function(){
 
             });
 
-            // this.floatingMessages.forEach(message => {
-            //     message.draw(context);
+            this.floatingMessages.forEach(message => {
+                message.draw(context);
     
-            // });
+            });
 
             this.UI.draw(context);
         }
@@ -160,7 +160,7 @@ window.addEventListener('load',function(){
     }
 
     const game = new Game(canvas.width, canvas.height);
-    // console.log(game);
+    console.log(game);
 
     let lastTime =0;
 

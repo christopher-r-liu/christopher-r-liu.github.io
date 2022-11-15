@@ -1,5 +1,7 @@
 import { Running , Sitting, Jumping, Falling, Rolling, Diving, Hit} from "./playerStates.js";
 import {CollisionAnimation} from "./collisionAnimation.js"
+import { FloatingMessage } from "./floatingMessages.js";
+
 
 export  class Player {
  constructor(game){
@@ -26,6 +28,7 @@ export  class Player {
       , new Rolling(this.game)
     , new Diving(this.game)
     , new Hit(this.game)];
+    this.gameName = game.gameName;
     // this.currentState = this.states[0];
     // this.currentState.enter();
 
@@ -62,14 +65,14 @@ draw(context){
  
  update(input, deltaTime){
 
-    this.checkCollision();
+    this.checkCollision(this.gameName);
     this.currentState.handleInput(input);
 
     this.x += this.speed;
 
 
-    if(input.includes('ArrowRight')) this.speed = this.maxSpeed;
-    else if (input.includes('ArrowLeft')) this.speed = -this.maxSpeed;
+    if(input.includes('ArrowRight') && this.currentState !== this.states[6] ) this.speed = this.maxSpeed;
+    else if (input.includes('ArrowLeft') && this.currentState !== this.states[6] ) this.speed = -this.maxSpeed;
     
     else this.speed =0;
     if(this.x<0) this.x =0;
@@ -118,7 +121,7 @@ onGround(){
 
 
 
-checkCollision() {
+checkCollision(gameName) {
     this.game.enemies.forEach(enemy => {
        if(enemy.x < this.x + this.width &&
         enemy.x + enemy.width > this.x &&
@@ -130,10 +133,14 @@ checkCollision() {
 
             if( this.currentState === this.states[4] || this.currentState === this.states[5]){
                 this.game.score++;
+                this.game.floatingMessages.push(new FloatingMessage('+1', enemy.x, enemy.y, 130, 50 ));
 
             }
             else {
                 this.setState(6, 0);
+                if(gameName !== 'city')
+                this.game.lives--;
+                if(this.game.lives <=0) this.game.gameOver = true;
 
 
             }
