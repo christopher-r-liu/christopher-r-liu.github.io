@@ -35,11 +35,16 @@ export class UI {
         if(this.game.gameOver){
             context.textAlign = 'center';
             context.font = this.fontSize *2 + 'px ' + this.fontFamily;
+
+            
             if(this.game.score >5 && this.game.lives >0){
+               
+                context.fillStyle = "#000080";
                 context.fillText("You Win! ", this.game.width * 0.5, this.game.height * 0.5 );
 
             }
             else{
+                context.fillStyle = "#CD5C5C";
                 context.fillText("You Lose! " , this.game.width * 0.5, this.game.height * 0.5 );
             }
         
